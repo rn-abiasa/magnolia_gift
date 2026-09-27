@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import envelopeBack from "../../assets/evenlope_v1.webp";
 import envelopeFront from "../../assets/evenlope_front_v1.webp";
 import envelopePaper from "../../assets/evenlope_paper_v1.webp";
@@ -104,12 +106,37 @@ export default function EnvelopeStage({
     stageHandlers,
   } = useEnvelopePhysics(BACKDROP_FLOWERS);
 
+  // Perangkat dengan hover sesungguhnya (mouse/trackpad) vs perangkat sentuh.
+  // Di HP, CSS :hover tidak andal setelah tap, jadi kertas di-toggle lewat state.
+  const [canHover] = useState(() =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+  );
+  const [isPaperOpen, setIsPaperOpen] = useState(false);
+
+  // Kertas keluar saat: (desktop) pointer masih di atas panggung amplop,
+  // atau (HP) setelah tap pertama — tetap terbuka sampai tap berikutnya.
+  const isPaperOut = isPaperOpen || (canHover && isHovered);
+
+  // Sentuhan di area selain konten surat membuka/menutup kertas.
+  // Handler hook (fisika amplop & bunga) tetap dipanggil lebih dulu.
+  function handleStageTouchStart(event) {
+    stageHandlers.onTouchStart(event);
+
+    const target =
+      event.target instanceof Element ? event.target : event.target?.parentElement;
+    if (target?.closest("[data-letter-area]")) return;
+
+    setIsPaperOpen((isOpen) => !isOpen);
+  }
+
   const letterContent = letter ?? <LetterContent />;
 
   return (
     <div
       ref={stageRef}
       {...stageHandlers}
+      onTouchStart={handleStageTouchStart}
       className="relative flex items-center justify-center p-10 cursor-grab active:cursor-grabbing select-none transform-3d perspective-[1200px] perspective-origin-center"
     >
       {/* Layer 0: rangkaian bunga di belakang amplop (bergoyang bebas) */}
@@ -141,7 +168,7 @@ export default function EnvelopeStage({
       {/* Layer 1-3: amplop 3D presisi + bayangan */}
       <div
         ref={envelopeRef}
-        className={`group relative w-[min(340px,78vw)] max-md:w-[min(300px,84vw)] aspect-[2540/2916] transform-3d will-change-transform outline-none ${
+        className={`relative w-[min(340px,78vw)] max-md:w-[min(300px,84vw)] aspect-[2540/2916] transform-3d will-change-transform outline-none ${
           isResting
             ? "transition-transform duration-[750ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
             : "transition-transform duration-[180ms] ease-[cubic-bezier(0.2,0.8,0.4,1)]"
@@ -155,10 +182,14 @@ export default function EnvelopeStage({
           className="absolute top-0 left-0 w-full h-full object-contain z-[1] [transform:translateZ(0px)] drop-shadow-[0_14px_28px_rgba(35,20,55,0.18)] pointer-events-none select-none"
         />
 
-        {/* Layer 2: kertas surat di dalam amplop (keluar sedikit saat dihover) */}
+        {/* Layer 2: kertas surat di dalam amplop (keluar saat amplop di-hover / di-tap) */}
         {/* translateZ kertas dijaga < 18px milik layer depan agar occlusion oleh kantung tetap benar */}
         <div
-          className="absolute left-1/2 bottom-[1.5%] w-[90.5%] aspect-square z-[2] pointer-events-none will-change-transform transition-transform duration-[550ms] ease-[cubic-bezier(0.25,1,0.5,1)] [transform:translateX(-50%)_translateY(0)_translateZ(8px)] group-hover:[transform:translateX(-50%)_translateY(-19%)_translateZ(14px)]"
+          className={`absolute left-1/2 bottom-[1.5%] w-[90.5%] aspect-square z-[2] pointer-events-none will-change-transform transition-transform duration-[550ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${
+            isPaperOut
+              ? "[transform:translateX(-50%)_translateY(-19%)_translateZ(14px)]"
+              : "[transform:translateX(-50%)_translateY(0)_translateZ(8px)]"
+          }`}
         >
           <img
             src={envelopePaper}
@@ -167,8 +198,13 @@ export default function EnvelopeStage({
             className="w-full h-full object-contain drop-shadow-[0_-3px_8px_rgba(0,0,0,0.08)]"
           />
 
-          {/* Area konten surat: hanya dapat diinteraksi saat kertas terangkat (hover) */}
-          <div className="absolute inset-x-[10%] top-[7%] bottom-[32%] flex flex-col overflow-hidden select-text pointer-events-none group-hover:pointer-events-auto">
+          {/* Area konten surat: hanya dapat diinteraksi saat kertas terangkat */}
+          <div
+            data-letter-area="true"
+            className={`absolute inset-x-[10%] top-[7%] bottom-[32%] flex flex-col overflow-hidden select-text ${
+              isPaperOut ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
             {letterContent}
           </div>
         </div>
@@ -190,7 +226,13 @@ export default function EnvelopeStage({
         />
 
         {/* Bayangan 3D di bawah amplop */}
-        <div className="absolute -bottom-[4%] left-[6%] w-[88%] h-6 z-0 pointer-events-none blur-[14px] transition-[transform,opacity] duration-[400ms] [transform:translateZ(-35px)_scale(0.95)] group-hover:[transform:translateZ(-45px)_scale(1.06)_translateY(12px)] group-hover:opacity-85 bg-[image:radial-gradient(ellipse_at_center,rgba(40,25,65,0.38)_0%,rgba(40,25,65,0.16)_45%,transparent_75%)]" />
+        <div
+          className={`absolute -bottom-[4%] left-[6%] w-[88%] h-6 z-0 pointer-events-none blur-[14px] transition-[transform,opacity] duration-[400ms] bg-[image:radial-gradient(ellipse_at_center,rgba(40,25,65,0.38)_0%,rgba(40,25,65,0.16)_45%,transparent_75%)] ${
+            isPaperOut
+              ? "[transform:translateZ(-45px)_scale(1.06)_translateY(12px)] opacity-85"
+              : "[transform:translateZ(-35px)_scale(0.95)]"
+          }`}
+        />
       </div>
     </div>
   );
