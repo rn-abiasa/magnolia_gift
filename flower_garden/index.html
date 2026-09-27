@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kebun Bunga Iris • Flower Garden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles/style.css" />
+  </head>
+  <body>
+    <!-- Container Efek Ladang Bunga (Background & Depth of Field) -->
+    <div class="garden-background">
+      <div class="sky-gradient"></div>
+      <div class="sun-glow"></div>
+
+      <!-- Lapisan bukit & ladang bunga kabur di kejauhan (Depth Blur) -->
+      <div class="meadow-layer layer-back blur-heavy"></div>
+      <div class="meadow-layer layer-mid blur-soft"></div>
+      <div class="meadow-layer layer-front"></div>
+
+      <!-- Partikel kelopak melayang & kilau cahaya -->
+      <div id="particles-container" class="particles-container"></div>
+    </div>
+
+    <!-- Konten Utama di Tengah Kebun (Hanya Amplop 3D Presisi) -->
+    <main class="garden-content" id="mainContent">
+      <div class="envelope-stage" id="envelopeStage">
+        <!-- Layer 0: Rangkaian Bunga di Belakang Amplop (Backdrop Flowers yang bergoyang bebas) -->
+        <div class="envelope-flowers-backdrop" id="envelopeFlowers">
+          <!-- Bunga Kiri Jauh (Luar) -->
+          <div class="env-flower flower-bg-l2" data-base-rot="-24" data-depth="-30">
+            <div class="env-flower-inner">
+              <img
+                src="src/assets/iris_flower_v1.webp"
+                alt="Iris Flower"
+                class="env-flower-img"
+              />
+            </div>
+          </div>
+          <!-- Bunga Kiri Tengah (Menyembul tinggi) -->
+          <div class="env-flower flower-bg-l1" data-base-rot="-12" data-depth="-20">
+            <div class="env-flower-inner">
+              <img
+                src="src/assets/iris_flower_v1.webp"
+                alt="Iris Flower"
+                class="env-flower-img"
+              />
+            </div>
+          </div>
+          <!-- Bunga Tengah Utama -->
+          <div class="env-flower flower-bg-mid" data-base-rot="1" data-depth="-25">
+            <div class="env-flower-inner">
+              <img
+                src="src/assets/iris_flower_v1.webp"
+                alt="Iris Flower"
+                class="env-flower-img"
+              />
+            </div>
+          </div>
+          <!-- Bunga Kanan Tengah (Menyembul tinggi) -->
+          <div class="env-flower flower-bg-r1" data-base-rot="13" data-depth="-20">
+            <div class="env-flower-inner">
+              <img
+                src="src/assets/iris_flower_v1.webp"
+                alt="Iris Flower"
+                class="env-flower-img"
+              />
+            </div>
+          </div>
+          <!-- Bunga Kanan Jauh (Luar) -->
+          <div class="env-flower flower-bg-r2" data-base-rot="25" data-depth="-30">
+            <div class="env-flower-inner">
+              <img
+                src="src/assets/iris_flower_v1.webp"
+                alt="Iris Flower"
+                class="env-flower-img"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="envelope-3d" id="envelope3D">
+
+
+          <!-- Layer 1: Belakang Amplop (Evenlope Back & Open Flap) -->
+          <img
+            src="src/assets/evenlope_v1.webp"
+            alt="Amplop Belakang"
+            class="env-layer env-layer-back"
+          />
+
+          <!-- Layer 2: Kertas Surat (Evenlope Paper di dalam amplop) -->
+          <div class="env-layer-paper-wrap" id="paperWrap">
+            <img
+              src="src/assets/evenlope_paper_v1.webp"
+              alt="Kertas Surat"
+              class="env-layer env-layer-paper"
+            />
+          </div>
+
+          <!-- Layer 3: Depan Amplop (Evenlope Front Pouch Flap) -->
+          <img
+            src="src/assets/evenlope_front_v1.webp"
+            alt="Amplop Depan"
+            class="env-layer env-layer-front"
+          />
+
+          <!-- Bayangan 3D di bawah amplop -->
+          <div class="envelope-shadow"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Tirai Bunga Pembuka Layar (Iris Flower Gate Overlay) -->
+    <div class="flower-curtain" id="flowerCurtain">
+      <!-- Sayap Kiri Tirai Bunga -->
+      <div class="curtain-wing curtain-left" id="curtainLeft">
+        <div class="flower-stem stem-l-1">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-l-2">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-l-3">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-l-4">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-l-5">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+      </div>
+
+      <!-- Sayap Kanan Tirai Bunga -->
+      <div class="curtain-wing curtain-right" id="curtainRight">
+        <div class="flower-stem stem-r-1">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-r-2">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-r-3">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-r-4">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+        <div class="flower-stem stem-r-5">
+          <img
+            src="src/assets/iris_flower_v1.webp"
+            alt="Iris Flower"
+            class="iris-img"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="src/scripts/main.js"></script>
+  </body>
+</html>
