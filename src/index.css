@@ -183,6 +183,81 @@
   }
 }
 
+/* ══ Kertas keepsake ════════════════════════════════════════════════════
+   Pengganti "kartu putih rounded generik": kertas krem dengan sudut tak
+   simetris (border-radius berbeda tiap sisi, meniru tepi robek halus),
+   sehelai washi tape di atas, sedikit miring seperti ditempel tangan, dan
+   lurus kembali saat disentuh/hover — dipakai untuk pesan, wish, dan kartu
+   alasan supaya terasa seperti benda nyata di atas meja, bukan div. */
+.paper-card {
+  position: relative;
+  background-color: #fdf8ef;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(74, 62, 114, 0.05) 0, transparent 40%),
+    radial-gradient(circle at 85% 78%, rgba(74, 62, 114, 0.05) 0, transparent 42%);
+  border-radius: 4px 18px 6px 20px / 16px 5px 20px 6px;
+  box-shadow:
+    0 1px 2px rgba(42, 32, 66, 0.16),
+    0 20px 36px -16px rgba(42, 32, 66, 0.5);
+  rotate: var(--paper-rot, -1.4deg);
+  transition:
+    rotate 0.35s ease-out,
+    translate 0.35s ease-out,
+    scale 0.35s ease-out;
+}
+
+.paper-card:hover {
+  rotate: 0deg;
+  translate: 0 -3px;
+}
+
+.paper-card::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 54px;
+  height: 20px;
+  background: rgba(255, 216, 155, 0.65);
+  transform: translateX(-50%) rotate(-4deg);
+  box-shadow: 0 2px 3px rgba(42, 32, 66, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-card {
+    transition: none;
+  }
+}
+
+/* ══ Kemiringan lembut, dipakai untuk menyusun kartu seperti ditempel
+   tangan (tidak lurus sempurna berjejer) — lurus kembali saat disentuh. */
+.tilt {
+  rotate: var(--tilt-rot, 0deg);
+  transition:
+    rotate 0.3s ease-out,
+    translate 0.3s ease-out;
+}
+
+.tilt:hover {
+  rotate: 0deg;
+  translate: 0 -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt {
+    transition: none;
+  }
+}
+
+/* ══ Glow lembut di belakang judul, warnanya mengikuti cahaya langit tiap
+   halaman (diberikan lewat --glow-color inline per halaman) supaya judul
+   terasa "diterangi" alih-alih teks putih datar. ══════════════════ */
+.heading-glow {
+  text-shadow:
+    0 2px 30px var(--glow-color, rgba(255, 225, 170, 0.55)),
+    0 1px 3px rgba(20, 14, 32, 0.35);
+}
+
 /* ==========================================================================
    KEYFRAMES SCENE "KEBUN BUNGA IRIS"
    Dipindahkan dari flower_garden/src/styles/style.css.

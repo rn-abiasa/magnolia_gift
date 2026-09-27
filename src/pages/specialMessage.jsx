@@ -7,14 +7,14 @@ import Button from "../components/ui/button";
 import photoTwo from "../assets/2.webp";
 import photoFour from "../assets/4.webp";
 
-const text = `Selamat ulang tahun, sayangku 🎉 Terima kasih sudah menjadi bagian terindah dalam hidupku, selalu ada di setiap suka dan duka, dan mengisi hari-hariku dengan tawa serta kehangatan. Semoga di usia yang baru ini kamu makin bahagia, sehat selalu, dan semua impianmu perlahan jadi nyata. Aku bersyukur banget bisa punya kamu, dan semoga kita bisa terus tumbuh bersama, melewati banyak momen indah lainnya. Aku sayang kamu, selamat ulang tahun ❤️`;
+const text = `Selamat ulang tahun, sayangku... Terima kasih sudah menjadi bagian terindah dalam hidupku, selalu ada di setiap suka dan duka, dan mengisi hari-hariku dengan tawa serta kehangatan. Semoga di usia yang baru ini kamu makin bahagia, sehat selalu, dan semua impianmu perlahan jadi nyata. Aku sayang kamu, selamat ulang tahun ❤️`;
 
 export default function SpecialMessage() {
   const navigate = useNavigate();
 
   return (
     <>
-      <GardenBackground />
+      <GardenBackground theme="blush" />
 
       {/* Dekorasi foto berbingkai polaroid, ditaruh menggantung di sisi
           kertas pesan supaya terasa seperti kenangan yang diselipkan */}
@@ -34,22 +34,34 @@ export default function SpecialMessage() {
       <main className="relative z-10 p-10 py-16 flex justify-center items-center min-h-screen">
         <section className="max-w-100">
           <h1
-            className="reveal text-5xl yuyu text-white text-center mb-5"
-            style={{ "--reveal-delay": "0s" }}
+            className="reveal yuyu text-5xl text-white text-center mb-1 heading-glow"
+            style={{
+              "--reveal-delay": "0s",
+              "--glow-color": "rgba(255,205,220,0.55)",
+            }}
           >
             Special Message
           </h1>
+          <p
+            className="reveal caveat text-2xl text-white/85 text-center mb-5"
+            style={{ "--reveal-delay": "0.1s" }}
+          >
+            untukmu, dari aku
+          </p>
 
           <div
-            className="reveal rounded-2xl bg-white/10 p-5 backdrop-blur-sm"
-            style={{ "--reveal-delay": "0.2s" }}
+            className="paper-card reveal p-6 sm:p-7"
+            style={{ "--reveal-delay": "0.25s", "--paper-rot": "-1.2deg" }}
           >
-            <Typewriter text={text} className="text-2xl yuyu text-white" />
+            <Typewriter
+              text={text}
+              className="text-xl leading-relaxed text-[#4a3e72] oooh-baby"
+            />
           </div>
 
           <div
-            className="reveal mt-6 flex justify-center"
-            style={{ "--reveal-delay": "0.35s" }}
+            className="reveal mt-8 flex justify-center"
+            style={{ "--reveal-delay": "0.4s" }}
           >
             <Button action={() => navigate("/reason-you-are-special")}>
               Next

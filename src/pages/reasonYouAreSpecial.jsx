@@ -13,9 +13,12 @@ const REASONS = [
   "Bersamamu, hal paling sederhana pun terasa seperti rumah.",
 ];
 
-function ReasonCard({ text }) {
+function ReasonCard({ text, rot }) {
   return (
-    <div className="flex h-full w-full items-center justify-center rounded-3xl border border-white/60 bg-white p-6 text-center shadow-lg shadow-[#2c2538]/30">
+    <div
+      className="paper-card flex h-full w-full items-center justify-center p-6 text-center"
+      style={{ "--paper-rot": `${rot}deg` }}
+    >
       <p className="oooh-baby text-xl text-[#4a3e72] sm:text-2xl">{text}</p>
     </div>
   );
@@ -25,24 +28,24 @@ export default function ReasonYouAreSpecial() {
   const navigate = useNavigate();
 
   const cards = REASONS.map((text, index) => (
-    <ReasonCard key={index} text={text} />
+    <ReasonCard key={index} text={text} rot={index % 2 === 0 ? -1.6 : 1.4} />
   ));
 
   return (
     <>
-      <GardenBackground />
+      <GardenBackground theme="sunset" />
       <main className="relative z-10 flex min-h-screen flex-col items-center justify-center p-8">
         <h1
-          className="reveal yuyu text-center text-4xl text-white sm:text-5xl"
-          style={{ "--reveal-delay": "0s" }}
+          className="reveal yuyu text-center text-4xl text-white sm:text-5xl heading-glow"
+          style={{ "--reveal-delay": "0s", "--glow-color": "rgba(255,170,130,0.55)" }}
         >
           Reason You Are Special
         </h1>
         <p
-          className="reveal yuyu mt-2 text-center text-lg text-white/90"
-          style={{ "--reveal-delay": "0.15s" }}
+          className="reveal caveat mt-1 text-center text-2xl text-white/85"
+          style={{ "--reveal-delay": "0.12s" }}
         >
-          Geser kartunya untuk lihat alasan berikutnya.
+          baru sebagian, masih banyak lagi
         </p>
 
         <div

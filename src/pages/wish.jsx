@@ -7,24 +7,30 @@ const wishText = `Semoga tahun ini membawa lebih banyak alasan untuk tersenyum, 
 export default function Wish() {
   return (
     <>
-      <GardenBackground />
+      <GardenBackground theme="night" />
       <main className="relative z-10 flex min-h-screen items-center justify-center p-8">
         <section className="max-w-100">
           <h1
-            className="reveal yuyu mb-5 text-center text-4xl text-white sm:text-5xl"
-            style={{ "--reveal-delay": "0s" }}
+            className="reveal yuyu mb-1 text-center text-4xl text-white sm:text-5xl heading-glow"
+            style={{ "--reveal-delay": "0s", "--glow-color": "rgba(200,210,255,0.5)" }}
           >
             My Wish For You
           </h1>
+          <p
+            className="reveal caveat mb-5 text-center text-2xl text-white/85"
+            style={{ "--reveal-delay": "0.1s" }}
+          >
+            dibisikkan pada bintang
+          </p>
 
           <div
-            className="reveal rounded-2xl bg-white/10 p-5 backdrop-blur-sm"
-            style={{ "--reveal-delay": "0.2s" }}
+            className="paper-card reveal p-6 sm:p-7"
+            style={{ "--reveal-delay": "0.25s", "--paper-rot": "1.1deg" }}
           >
             <Typewriter
               text={wishText}
               speed={30}
-              className="text-2xl yuyu text-white"
+              className="text-xl leading-relaxed text-[#4a3e72] oooh-baby"
             />
           </div>
         </section>

@@ -15,7 +15,7 @@ export default function Memories() {
 
   return (
     <>
-      <GardenBackground />
+      <GardenBackground theme="golden" />
 
       {/* Dekorasi bunga kecil di sudut bawah, dengan terpaan angin halus
           yang sama seperti tirai bunga di halaman cover (windBreeze*Deep) */}
@@ -37,16 +37,16 @@ export default function Memories() {
       <main className="relative z-10 p-10 py-20">
         <section>
           <h1
-            className="reveal text-5xl yuyu text-white text-center"
-            style={{ "--reveal-delay": "0s" }}
+            className="reveal text-5xl yuyu text-white text-center heading-glow"
+            style={{ "--reveal-delay": "0s", "--glow-color": "rgba(255,214,140,0.6)" }}
           >
             Our Memories
           </h1>
           <p
-            className="reveal text-2xl yuyu text-white text-center"
+            className="reveal caveat text-2xl text-white/85 text-center"
             style={{ "--reveal-delay": "0.15s" }}
           >
-            Kenangan yang kita lewati bersama.
+            kenangan yang kita lewati bersama
           </p>
 
           <div className="flex flex-col justify-center items-center mt-5">
