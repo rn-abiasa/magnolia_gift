@@ -4,12 +4,15 @@ import envelopeBack from "../../assets/evenlope_v1.webp";
 import envelopeFront from "../../assets/evenlope_front_v1.webp";
 import envelopePaper from "../../assets/evenlope_paper_v1.webp";
 import irisFlower from "../../assets/iris_flower_v1.webp";
+import magnoliaFlower from "../../assets/magnolia_flower.webp";
+import melatiFlower from "../../assets/melati_flower.webp";
 import sticker from "../../assets/siri_with_hat.webp";
 import useEnvelopePhysics from "../../hooks/useEnvelopePhysics";
 import LetterContent from "./LetterContent";
 
 /**
  * Layer 0: rangkaian bunga di belakang amplop (urutan DOM sama dengan aslinya).
+ * Menggunakan 3 jenis bunga: Iris, Magnolia, dan Melati.
  * `baseRot` & `depth` dipakai oleh fisika interaksi, sisanya class Tailwind.
  */
 const BACKDROP_FLOWERS = [
@@ -17,6 +20,8 @@ const BACKDROP_FLOWERS = [
     id: "flower-bg-l2",
     baseRot: -24,
     depth: -30,
+    flowerSrc: melatiFlower,
+    alt: "Melati Flower",
     shell:
       "w-[58%] h-[98%] ml-[-48%] bottom-[12%] [transform:translateZ(-15px)_rotate(-24deg)] drop-shadow-[-4px_10px_18px_rgba(35,20,55,0.22)] brightness-92",
     idleAnim: "animate-[envFlowerIdleL2_6.8s_ease-in-out_infinite_alternate]",
@@ -27,6 +32,8 @@ const BACKDROP_FLOWERS = [
     id: "flower-bg-l1",
     baseRot: -12,
     depth: -20,
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
     shell:
       "w-[54%] h-[110%] ml-[-32%] bottom-[16%] [transform:translateZ(-8px)_rotate(-12deg)] drop-shadow-[-2px_10px_20px_rgba(35,20,55,0.2)] brightness-98",
     idleAnim:
@@ -38,6 +45,8 @@ const BACKDROP_FLOWERS = [
     id: "flower-bg-mid",
     baseRot: 1,
     depth: -25,
+    flowerSrc: magnoliaFlower,
+    alt: "Magnolia Flower",
     shell:
       "w-[52%] h-[116%] ml-[-26%] bottom-[20%] [transform:translateZ(-12px)_rotate(1deg)] drop-shadow-[0_12px_22px_rgba(35,20,55,0.18)] brightness-102",
     idleAnim:
@@ -49,6 +58,8 @@ const BACKDROP_FLOWERS = [
     id: "flower-bg-r1",
     baseRot: 13,
     depth: -20,
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
     shell:
       "w-[54%] h-[110%] ml-[-22%] bottom-[16%] [transform:translateZ(-8px)_rotate(13deg)] drop-shadow-[2px_10px_20px_rgba(35,20,55,0.2)] brightness-98",
     idleAnim:
@@ -60,6 +71,8 @@ const BACKDROP_FLOWERS = [
     id: "flower-bg-r2",
     baseRot: 25,
     depth: -30,
+    flowerSrc: melatiFlower,
+    alt: "Melati Flower",
     shell:
       "w-[58%] h-[98%] ml-[-10%] bottom-[12%] [transform:translateZ(-15px)_rotate(25deg)] drop-shadow-[4px_10px_18px_rgba(35,20,55,0.22)] brightness-92",
     idleAnim:
@@ -144,8 +157,8 @@ export default function EnvelopeStage({
               }`}
             >
               <img
-                src={irisFlower}
-                alt="Iris Flower"
+                src={flower.flowerSrc}
+                alt={flower.alt}
                 draggable={false}
                 className="w-full h-full object-contain block select-none"
               />

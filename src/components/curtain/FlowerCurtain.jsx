@@ -1,39 +1,52 @@
 import irisFlower from "../../assets/iris_flower_v1.webp";
+import magnoliaFlower from "../../assets/magnolia_flower.webp";
+import melatiFlower from "../../assets/melati_flower.webp";
 
 /**
- * Susunan 5 tangkai menyilang per sayap tirai.
+ * Susunan 5 tangkai menyilang per sayap tirai menggunakan 3 jenis bunga:
+ * Iris, Magnolia, dan Melati.
  * Posisi, ukuran, urutan tumpukan (z-index), filter kedalaman, dan
- * animasi terpaan angin dipertahankan persis seperti versi asli.
+ * animasi terpaan angin dipertahankan dengan variasi bunga yang harmonis.
  */
 const LEFT_STEMS = [
   {
     id: "stem-l-1",
     position: "left-[3vw] w-[38vw] max-w-[480px] h-[112vh] max-md:w-[62vw] z-[5]",
     anim: "animate-[windBreezeLeft_7.6s_cubic-bezier(0.445,0.05,0.55,0.95)_infinite]",
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
   },
   {
     id: "stem-l-2",
     position:
       "left-[17vw] max-md:left-[16vw] w-[36vw] max-w-[440px] h-[105vh] max-md:w-[56vw] z-[4]",
     anim: "animate-[windBreezeLeftCross_8.6s_cubic-bezier(0.445,0.05,0.55,0.95)_1.2s_infinite]",
+    flowerSrc: magnoliaFlower,
+    alt: "Magnolia Flower",
   },
   {
     id: "stem-l-3",
     position:
       "left-[31vw] max-md:left-[32vw] w-[33vw] max-w-[410px] h-[100vh] max-md:w-[50vw] z-[3]",
     anim: "animate-[windBreezeLeftDeep_6.8s_cubic-bezier(0.445,0.05,0.55,0.95)_2.1s_infinite]",
+    flowerSrc: melatiFlower,
+    alt: "Melati Flower",
   },
   {
     id: "stem-l-4",
     position:
       "left-[8vw] w-[34vw] max-w-[410px] h-[94vh] z-[2] brightness-90 blur-[1px]",
     anim: "animate-[windBreezeLeft_7.2s_cubic-bezier(0.445,0.05,0.55,0.95)_0.6s_infinite]",
+    flowerSrc: magnoliaFlower,
+    alt: "Magnolia Flower",
   },
   {
     id: "stem-l-5",
     position:
       "left-[24vw] w-[30vw] max-w-[370px] h-[86vh] z-[1] brightness-82 blur-[3px]",
     anim: "animate-[windBreezeLeftCross_9.2s_cubic-bezier(0.445,0.05,0.55,0.95)_2.8s_infinite]",
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
   },
 ];
 
@@ -42,30 +55,40 @@ const RIGHT_STEMS = [
     id: "stem-r-1",
     position: "right-[3vw] w-[38vw] max-w-[480px] h-[112vh] max-md:w-[62vw] z-[5]",
     anim: "animate-[windBreezeRight_8.1s_cubic-bezier(0.445,0.05,0.55,0.95)_infinite]",
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
   },
   {
     id: "stem-r-2",
     position:
       "right-[17vw] max-md:right-[16vw] w-[36vw] max-w-[440px] h-[105vh] max-md:w-[56vw] z-[4]",
     anim: "animate-[windBreezeRightCross_7.4s_cubic-bezier(0.445,0.05,0.55,0.95)_1.5s_infinite]",
+    flowerSrc: magnoliaFlower,
+    alt: "Magnolia Flower",
   },
   {
     id: "stem-r-3",
     position:
       "right-[31vw] max-md:right-[32vw] w-[33vw] max-w-[410px] h-[100vh] max-md:w-[50vw] z-[3]",
     anim: "animate-[windBreezeRightDeep_8.8s_cubic-bezier(0.445,0.05,0.55,0.95)_0.8s_infinite]",
+    flowerSrc: melatiFlower,
+    alt: "Melati Flower",
   },
   {
     id: "stem-r-4",
     position:
       "right-[8vw] w-[34vw] max-w-[410px] h-[94vh] z-[2] brightness-90 blur-[1px]",
     anim: "animate-[windBreezeRight_7s_cubic-bezier(0.445,0.05,0.55,0.95)_2.3s_infinite]",
+    flowerSrc: magnoliaFlower,
+    alt: "Magnolia Flower",
   },
   {
     id: "stem-r-5",
     position:
       "right-[24vw] w-[30vw] max-w-[370px] h-[86vh] z-[1] brightness-82 blur-[3px]",
     anim: "animate-[windBreezeRightCross_9.5s_cubic-bezier(0.445,0.05,0.55,0.95)_1.1s_infinite]",
+    flowerSrc: irisFlower,
+    alt: "Iris Flower",
   },
 ];
 
@@ -85,8 +108,8 @@ const WINGS = [
 ];
 
 /**
- * Tirai bunga pembuka layar: dua sayap bunga iris yang membuka ke luar
- * (ditiup angin) saat isOpen berubah menjadi true.
+ * Tirai bunga pembuka layar: dua sayap aneka bunga (Iris, Magnolia, Melati)
+ * yang membuka ke luar (ditiup angin) saat isOpen berubah menjadi true.
  */
 export default function FlowerCurtain({ isOpen, onOpen }) {
   return (
@@ -109,8 +132,8 @@ export default function FlowerCurtain({ isOpen, onOpen }) {
               className={`absolute -bottom-[6vh] origin-bottom will-change-transform transition-[filter] duration-[800ms] ${stem.position} ${stem.anim}`}
             >
               <img
-                src={irisFlower}
-                alt="Iris Flower"
+                src={stem.flowerSrc}
+                alt={stem.alt}
                 draggable={false}
                 className="w-full h-full object-contain block select-none drop-shadow-[0_15px_25px_rgba(28,18,48,0.28)]"
               />
