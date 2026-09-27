@@ -4,11 +4,16 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 
 import Cover from "./pages/cover";
+import Memories from "./pages/memories";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Cover />,
+  },
+  {
+    path: "/memories",
+    element: <Memories />,
   },
 ]);
 

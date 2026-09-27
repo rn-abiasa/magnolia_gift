@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 /**
  * Isi kertas surat di dalam amplop.
  *
@@ -10,6 +12,8 @@
  *   Bila prop itu tidak diberikan, klik tombol akan melipat kembali suratnya.
  */
 export default function LetterContent({ onAction }) {
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-full w-full flex-col">
       <div>
@@ -24,8 +28,11 @@ export default function LetterContent({ onAction }) {
       <div className="flex justify-center mt-5">
         <button
           type="button"
-          onClick={onAction}
-          className="cursor-pointer rounded-full bg-[#6b52ae] px-4 py-2 text-[0.7rem] font-semibold tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(74,62,114,0.3)] transition-colors hover:bg-[#4a3e72] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd89b] focus-visible:ring-offset-2"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate("/memories");
+          }}
+          className="relative z-10 cursor-pointer rounded-full bg-[#6b52ae] px-4 py-2 text-[0.7rem] font-semibold tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(74,62,114,0.3)] transition-colors hover:bg-[#4a3e72] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd89b] focus-visible:ring-offset-2"
         >
           Open
         </button>
