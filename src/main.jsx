@@ -5,6 +5,7 @@ import "./index.css";
 
 import Cover from "./pages/cover";
 import Memories from "./pages/memories";
+import SpecialMessage from "./pages/specialMessage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/memories",
     element: <Memories />,
+  },
+  {
+    path: "/special-message",
+    element: <SpecialMessage />,
   },
 ]);
 
