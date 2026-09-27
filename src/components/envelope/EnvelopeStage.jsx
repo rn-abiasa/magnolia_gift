@@ -4,7 +4,7 @@ import envelopeBack from "../../assets/evenlope_v1.webp";
 import envelopeFront from "../../assets/evenlope_front_v1.webp";
 import envelopePaper from "../../assets/evenlope_paper_v1.webp";
 import irisFlower from "../../assets/iris_flower_v1.webp";
-import magnoliaSticker from "../../assets/magnolia_flower.webp";
+import sticker from "../../assets/siri_with_hat.webp";
 import useEnvelopePhysics from "../../hooks/useEnvelopePhysics";
 import LetterContent from "./LetterContent";
 
@@ -29,7 +29,8 @@ const BACKDROP_FLOWERS = [
     depth: -20,
     shell:
       "w-[54%] h-[110%] ml-[-32%] bottom-[16%] [transform:translateZ(-8px)_rotate(-12deg)] drop-shadow-[-2px_10px_20px_rgba(35,20,55,0.2)] brightness-98",
-    idleAnim: "animate-[envFlowerIdleL1_5.9s_ease-in-out_0.8s_infinite_alternate]",
+    idleAnim:
+      "animate-[envFlowerIdleL1_5.9s_ease-in-out_0.8s_infinite_alternate]",
     hoverAnim:
       "animate-[envFlowerHoverL1_2.5s_cubic-bezier(0.44,0.05,0.55,0.95)_0.15s_infinite_alternate]",
   },
@@ -39,7 +40,8 @@ const BACKDROP_FLOWERS = [
     depth: -25,
     shell:
       "w-[52%] h-[116%] ml-[-26%] bottom-[20%] [transform:translateZ(-12px)_rotate(1deg)] drop-shadow-[0_12px_22px_rgba(35,20,55,0.18)] brightness-102",
-    idleAnim: "animate-[envFlowerIdleMid_7.4s_ease-in-out_1.4s_infinite_alternate]",
+    idleAnim:
+      "animate-[envFlowerIdleMid_7.4s_ease-in-out_1.4s_infinite_alternate]",
     hoverAnim:
       "animate-[envFlowerHoverMid_2.7s_cubic-bezier(0.44,0.05,0.55,0.95)_0.3s_infinite_alternate]",
   },
@@ -49,7 +51,8 @@ const BACKDROP_FLOWERS = [
     depth: -20,
     shell:
       "w-[54%] h-[110%] ml-[-22%] bottom-[16%] [transform:translateZ(-8px)_rotate(13deg)] drop-shadow-[2px_10px_20px_rgba(35,20,55,0.2)] brightness-98",
-    idleAnim: "animate-[envFlowerIdleR1_6.2s_ease-in-out_0.4s_infinite_alternate]",
+    idleAnim:
+      "animate-[envFlowerIdleR1_6.2s_ease-in-out_0.4s_infinite_alternate]",
     hoverAnim:
       "animate-[envFlowerHoverR1_2.4s_cubic-bezier(0.44,0.05,0.55,0.95)_0.2s_infinite_alternate]",
   },
@@ -59,7 +62,8 @@ const BACKDROP_FLOWERS = [
     depth: -30,
     shell:
       "w-[58%] h-[98%] ml-[-10%] bottom-[12%] [transform:translateZ(-15px)_rotate(25deg)] drop-shadow-[4px_10px_18px_rgba(35,20,55,0.22)] brightness-92",
-    idleAnim: "animate-[envFlowerIdleR2_7.1s_ease-in-out_1.9s_infinite_alternate]",
+    idleAnim:
+      "animate-[envFlowerIdleR2_7.1s_ease-in-out_1.9s_infinite_alternate]",
     hoverAnim:
       "animate-[envFlowerHoverR2_2.1s_cubic-bezier(0.44,0.05,0.55,0.95)_0.4s_infinite_alternate]",
   },
@@ -68,7 +72,7 @@ const BACKDROP_FLOWERS = [
 // Stiker kecil yang ditempel di bagian kanan depan amplop
 // (translateZ 26px = di atas permukaan kantung depan yang ada di 18px)
 const STICKER_SHELL =
-  "absolute right-[3%] bottom-[10%] w-[30%] aspect-[542/1172] z-[4] origin-bottom-right object-contain block pointer-events-none select-none [transform:translateZ(26px)_rotate(-12deg)] drop-shadow-[3px_8px_14px_rgba(35,20,55,0.25)]";
+  "absolute right-[3%] bottom-[10%] w-[40%] aspect-[542/1172] z-[4] origin-bottom-right object-contain block pointer-events-none select-none [transform:translateZ(26px)_rotate(-12deg)] drop-shadow-[3px_8px_14px_rgba(35,20,55,0.25)]";
 
 /**
  * Panggung amplop 3D.
@@ -80,16 +84,24 @@ const STICKER_SHELL =
 export default function EnvelopeStage({
   letter,
   onLetterAction,
-  stickerSrc = magnoliaSticker,
+  stickerSrc = sticker,
 }) {
-  const { stageRef, envelopeRef, flowerRefs, isHovered, isResting, stageHandlers } =
-    useEnvelopePhysics(BACKDROP_FLOWERS);
+  const {
+    stageRef,
+    envelopeRef,
+    flowerRefs,
+    isHovered,
+    isResting,
+    stageHandlers,
+  } = useEnvelopePhysics(BACKDROP_FLOWERS);
 
   const [isLetterOpen, setIsLetterOpen] = useState(false);
 
   // Tanpa prop `onLetterAction`, tombol di kertas akan melipat kembali suratnya
   const handleLetterAction = onLetterAction ?? (() => setIsLetterOpen(false));
-  const letterContent = letter ?? <LetterContent onAction={handleLetterAction} />;
+  const letterContent = letter ?? (
+    <LetterContent onAction={handleLetterAction} />
+  );
 
   function handleEnvelopeClick(event) {
     // Klik di dalam amplop hanya membuka/menutup surat (tidak diteruskan ke stage)

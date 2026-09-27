@@ -11,25 +11,23 @@
  */
 export default function LetterContent({ onAction }) {
   return (
-    <div className="flex h-full w-full flex-col justify-between">
+    <div className="flex h-full w-full flex-col">
       <div>
-        <p className="homemade-apple text-3xl leading-[1.5] text-[#4a3e72]">
-          Untuk kamu, sayang
+        <p className="yuyu text-2xl leading-normal text-[#4a3e72] text-center">
+          Happy Birthday My Lovee
         </p>
-        <p className="caveat mt-2 whitespace-pre-line text-[0.8rem] leading-[1.6] text-[#2c2538]">
-          {
-            "Selamat ulang tahun.\nSemoga hari ini manis,\ndan tahun ini penuh hal baik."
-          }
+        <p className="caveat mt-2 whitespace-pre-line text-base leading-[1.6] text-[#2c2538] text-center">
+          27-09-2026
         </p>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-5">
         <button
           type="button"
           onClick={onAction}
           className="cursor-pointer rounded-full bg-[#6b52ae] px-4 py-2 text-[0.7rem] font-semibold tracking-[0.08em] text-white shadow-[0_6px_16px_rgba(74,62,114,0.3)] transition-colors hover:bg-[#4a3e72] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffd89b] focus-visible:ring-offset-2"
         >
-          Lanjut
+          Open
         </button>
       </div>
     </div>
