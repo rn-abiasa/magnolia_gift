@@ -12,7 +12,10 @@ export default function Wish() {
         <section className="max-w-100">
           <h1
             className="reveal yuyu mb-1 text-center text-4xl text-white sm:text-5xl heading-glow"
-            style={{ "--reveal-delay": "0s", "--glow-color": "rgba(200,210,255,0.5)" }}
+            style={{
+              "--reveal-delay": "0s",
+              "--glow-color": "rgba(200,210,255,0.5)",
+            }}
           >
             My Wish For You
           </h1>
@@ -20,7 +23,7 @@ export default function Wish() {
             className="reveal caveat mb-5 text-center text-2xl text-white/85"
             style={{ "--reveal-delay": "0.1s" }}
           >
-            dibisikkan pada bintang
+            You are special
           </p>
 
           <div

@@ -9,9 +9,21 @@ import Button from "../components/ui/button";
    -> youtubeId: "XXXXXXXXXXX". Biarkan null jika belum ada, kartu akan
    menampilkan placeholder "tempel link YouTube di sini". */
 const SONGS = [
-  { title: "Lagu Kita #1", artist: "Isi nama artis", youtubeId: null },
-  { title: "Lagu Kita #2", artist: "Isi nama artis", youtubeId: null },
-  { title: "Lagu Kita #3", artist: "Isi nama artis", youtubeId: null },
+  {
+    title: "Overnight - Kita Lewati Berdua",
+    artist: "OVERNIGHT",
+    youtubeId: "__Pb1fO2H2A",
+  },
+  {
+    title: "Raim Laode - Arti Hidup",
+    artist: "RAIM LAODE",
+    youtubeId: "6dscL3C_t2U",
+  },
+  {
+    title: "Nadhif Basalamah - Bergema Sampai Selamanya",
+    artist: "NADHIF BASALAMAH",
+    youtubeId: "gvunApwKIiY",
+  },
 ];
 
 const TILTS = [-1.8, 1.5, -1.2];
@@ -25,7 +37,10 @@ export default function OurSongs() {
       <main className="relative z-10 flex min-h-screen flex-col items-center justify-center p-8 py-16">
         <h1
           className="reveal yuyu text-center text-4xl text-white sm:text-5xl heading-glow"
-          style={{ "--reveal-delay": "0s", "--glow-color": "rgba(210,190,255,0.5)" }}
+          style={{
+            "--reveal-delay": "0s",
+            "--glow-color": "rgba(210,190,255,0.5)",
+          }}
         >
           Our Songs
         </h1>
@@ -36,7 +51,7 @@ export default function OurSongs() {
           lagu-lagu yang selalu mengingatkanku padamu
         </p>
 
-        <div className="mt-8 flex w-full max-w-100 flex-col gap-6">
+        <div className="mt-8 flex w-full max-w-100 flex-col justify-center items-center gap-6 sm:flex-row">
           {SONGS.map((song, index) => (
             <div
               key={song.title}

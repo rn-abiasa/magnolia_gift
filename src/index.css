@@ -71,10 +71,11 @@
   }
 }
 
-/* ══ Dekorasi bunga sudut halaman (Memories) ══════════════════════════════
+/* ══ Semak/bed bunga beranimasi angin (Memories & Reason You Are Special) ══
    Sama seperti tirai bunga di cover: goyangan angin halus lewat
-   windBreeze*Deep yang sudah ada, hanya diperkecil & ditaruh statis di
-   sudut kiri/kanan bawah alih-alih menutup layar penuh. */
+   windBreeze* yang sudah ada — di Memories disusun satu baris berlapis
+   hampir menutup area bawah, di Reason You Are Special menjulang setinggi
+   layar mengelilingi konten. */
 .corner-flower {
   will-change: transform;
 }
