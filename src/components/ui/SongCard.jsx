@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 /* single-path "music note" icon (Material's music_note glyph) —
    used both as the empty-state placeholder and as the small
    badge next to the title, so no icon library is needed */
@@ -14,30 +12,59 @@ const NoteIcon = ({ className }) => (
    every video up front loads N players nobody has pressed
    play on yet, which is the opposite of "ringan".
 
-   The thumbnail, the darkening overlay and the play button
-   are three stacked layers, ALL absolutely positioned inside
-   the same relative frame — that's what keeps the button
-   sitting dead center over the artwork instead of being laid
-   out as a flex sibling next to a full-width image. */
-export default function SongCard({ title, artist, youtubeId }) {
-  const [playing, setPlaying] = useState(false);
+   Playback is CONTROLLED from the page (playing / onPlay /
+   onStop) so only ONE card can play at a time: starting the
+   next song unmounts the previous iframe and stops its audio.
+
+   The frame reads as a mini polaroid — same white frame as
+   PolaroidPhoto — with a SQUARE thumbnail, so three cards
+   still fit a flex row on mobile. The thumbnail, darkening
+   overlay and play button are stacked layers inside the same
+   relative frame; the stop button carries z-10 because the
+   iframe underneath swallows every click. */
+export default function SongCard({
+  title,
+  artist,
+  youtubeId,
+  playing = false,
+  onPlay,
+  onStop,
+}) {
   const hasVideo = Boolean(youtubeId);
 
   return (
-    <div className="group w-full overflow-hidden rounded-2xl border border-white/60 bg-white shadow-md shadow-rose-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-rose-950/45 active:translate-y-0 active:scale-[0.99]">
-      <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-rose-700/10 via-rose-700/5 to-rose-700/10">
+    <div className="group w-full rounded-md bg-white p-1.5 pb-2 shadow-md shadow-rose-950/30 ring-1 ring-white/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-rose-950/45 active:translate-y-0 active:scale-[0.99]">
+      <div className="relative aspect-square w-full overflow-hidden rounded-[3px] bg-gradient-to-br from-rose-700/10 via-rose-700/5 to-rose-700/10">
         {playing && hasVideo ? (
-          <iframe
-            className="absolute inset-0 h-full w-full"
-            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-            title={title}
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-          />
+          <>
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+              title={title}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            />
+            {/* iframe menelan semua klik — tombol stop harus
+                berada di atasnya dengan z-10 sendiri */}
+            <button
+              type="button"
+              onClick={onStop}
+              aria-label={`Hentikan ${title}`}
+              className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-rose-950/70 text-white shadow-md ring-1 ring-white/40 transition-transform duration-200 hover:scale-110 active:scale-90"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-2.5 w-2.5 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M6 6h12v12H6z" />
+              </svg>
+            </button>
+          </>
         ) : hasVideo ? (
           <button
             type="button"
-            onClick={() => setPlaying(true)}
+            onClick={onPlay}
             className="absolute inset-0"
             aria-label={`Putar ${title}`}
           >
@@ -52,10 +79,10 @@ export default function SongCard({ title, artist, youtubeId }) {
                 contrast */}
             <span className="absolute inset-0 bg-gradient-to-t from-rose-950/55 via-rose-950/10 to-transparent transition-opacity duration-300 group-hover:from-rose-950/65" />
             <span className="absolute inset-0 flex items-center justify-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 shadow-lg shadow-rose-950/30 ring-1 ring-white/60 backdrop-blur-sm transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-90">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-lg shadow-rose-950/30 ring-1 ring-white/60 backdrop-blur-sm transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-90">
                 <svg
                   viewBox="0 0 24 24"
-                  className="ml-0.5 h-6 w-6 fill-rose-700"
+                  className="ml-0.5 h-5 w-5 fill-rose-700"
                   aria-hidden="true"
                 >
                   <path d="M8 5v14l11-7z" />
@@ -65,24 +92,23 @@ export default function SongCard({ title, artist, youtubeId }) {
           </button>
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-rose-700/20 text-rose-700/40">
-            <NoteIcon className="h-8 w-8 fill-current" />
-            <span className="oooh-baby text-base">
+            <NoteIcon className="h-6 w-6 fill-current" />
+            <span className="oooh-baby text-[9px]">
               tempel link YouTube di sini
             </span>
           </div>
         )}
       </div>
 
-      <div className="flex items-center gap-3 px-4 py-3 text-left">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-700/10 text-rose-700/70">
-          <NoteIcon className="h-4 w-4 fill-current" />
-        </span>
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-rose-950/80">
-            {title}
-          </p>
-          <p className="truncate text-xs text-rose-950/50">{artist}</p>
-        </div>
+      {/* caption dengan tinggi tetap (h-10) supaya semua kartu dalam
+          satu baris selalu sama tingginya walau panjang judul beda */}
+      <div className="flex h-16 flex-col items-center justify-center gap-0.5 px-1 pt-1.5 text-center">
+        <p className="yuyu line-clamp-2 w-full text-lg leading-tight text-rose-950/75">
+          {title}
+        </p>
+        <p className="w-full truncate text-xs font-medium uppercase tracking-wider text-rose-950/45">
+          {artist}
+        </p>
       </div>
     </div>
   );
