@@ -10,7 +10,7 @@ export default function GardenBackground() {
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-0 z-[1] w-screen h-screen overflow-hidden pointer-events-none"
+      className="fixed top-0 left-0 z-1 w-screen h-screen overflow-hidden pointer-events-none"
     >
       {/* Langit bergradasi */}
       <div className="absolute inset-0 bg-[image:linear-gradient(180deg,#9cb8da_0%,#c4d5ea_25%,#f2dbdf_50%,#f8e3c5_75%,#e7e3bf_100%)]" />

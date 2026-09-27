@@ -28,6 +28,9 @@ export default function Cover() {
             : "[transform:scale(0.94)] opacity-0 pointer-events-none"
         }`}
       >
+        {/* Isi surat: src/components/envelope/LetterContent.jsx
+            Aksi tombol di kertas: <EnvelopeStage onLetterAction={...} /> —
+            tanpa prop itu, tombol akan melipat kembali suratnya */}
         <EnvelopeStage />
       </main>
 
